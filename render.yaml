@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: dineflow-backend
+    env: node
+    branch: main
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+      - key: DB_HOST
+      - key: DB_PORT
+      - key: DB_USER
+      - key: DB_PASSWORD
+      - key: DB_NAME
+      - key: JWT_SECRET
+      - key: JWT_EXPIRES_IN
+      - key: CORS_ORIGINS
+      - key: SENDGRID_API_KEY
+      - key: SENDGRID_FROM_EMAIL
+      - key: TWILIO_ACCOUNT_SID
+      - key: TWILIO_AUTH_TOKEN
+      - key: TWILIO_FROM_NUMBER
