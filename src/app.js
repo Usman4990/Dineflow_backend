@@ -17,7 +17,7 @@ const app = express();
 // Read allowed CORS origins from environment for production-ready deployment
 const corsOrigins = process.env.CORS_ORIGINS
   ? process.env.CORS_ORIGINS.split(',').map((origin) => origin.trim()).filter(Boolean)
-  : ['http://localhost:5173', 'http://127.0.0.1:5173'];
+  : ['http://localhost:5173', 'http://127.0.0.1:5173', 'https://dineflow-frontend-five.vercel.app'];
 
 // Global Middleware
 app.use(cors({
