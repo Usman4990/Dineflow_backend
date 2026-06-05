@@ -254,11 +254,227 @@ Thank you for joining DineFlow.
 Regards,
 DineFlow Team`;
 
-  return await sendEmail({ to, subject, text, userId });
+  const html = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Welcome to DineFlow</title>
+        <style>
+          body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f9fafb;
+            margin: 0;
+            padding: 0;
+            color: #1f2937;
+          }
+          .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid #f3f4f6;
+          }
+          .header {
+            background: linear-gradient(135deg, #f97316 0%, #fbbf24 100%);
+            padding: 32px;
+            text-align: center;
+          }
+          .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+          }
+          .content {
+            padding: 40px 32px;
+          }
+          h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-top: 0;
+            color: #111827;
+          }
+          p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #4b5563;
+          }
+          .features {
+            margin: 24px 0;
+            padding: 0;
+            list-style: none;
+          }
+          .features li {
+            font-size: 15px;
+            margin-bottom: 12px;
+            color: #4b5563;
+            display: flex;
+            align-items: center;
+          }
+          .features li::before {
+            content: "✓";
+            color: #ea580c;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 16px;
+          }
+          .footer {
+            background-color: #f9fafb;
+            padding: 24px 32px;
+            text-align: center;
+            font-size: 13px;
+            color: #9ca3af;
+            border-top: 1px solid #f3f4f6;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <div class="logo">DineFlow</div>
+          </div>
+          <div class="content">
+            <h1>Welcome to DineFlow, ${name}!</h1>
+            <p>We are absolutely thrilled to welcome you to our community. DineFlow is designed to make your dining experience smooth, quick, and delightful.</p>
+            <p>Here is what you can do next with your new account:</p>
+            <ul class="features">
+              <li>Explore our rich and delicious menu options</li>
+              <li>Add items to your cart and place orders instantly</li>
+              <li>Track your delivery or pickup status in real-time</li>
+              <li>Rate and review your meals to help us improve</li>
+            </ul>
+          </div>
+          <div class="footer">
+            <p>This is an automated welcome email from DineFlow. Please do not reply directly to this message.</p>
+            <p>&copy; 2026 DineFlow. All rights reserved.</p>
+          </div>
+        </div>
+      </body>
+    </html>
+  `;
+
+  return await sendEmail({ to, subject, text, html, userId });
+};
+
+const sendOtpEmail = async ({ to, otp, expiresInMinutes = 10 }) => {
+  const subject = 'DineFlow Login Verification';
+  const text = `Your DineFlow Login Verification OTP is: ${otp}. This OTP will expire in ${expiresInMinutes} minutes. For security, do not share this code.`;
+  const html = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DineFlow Login Verification</title>
+        <style>
+          body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f9fafb;
+            margin: 0;
+            padding: 0;
+            color: #1f2937;
+          }
+          .container {
+            max-width: 500px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid #f3f4f6;
+          }
+          .header {
+            background: linear-gradient(135deg, #f97316 0%, #fbbf24 100%);
+            padding: 24px;
+            text-align: center;
+          }
+          .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+          }
+          .content {
+            padding: 32px;
+            text-align: center;
+          }
+          h1 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 0;
+            color: #111827;
+          }
+          p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #4b5563;
+          }
+          .otp-card {
+            background-color: #fff7ed;
+            border: 1px dashed #fdba74;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+            letter-spacing: 6px;
+            font-size: 32px;
+            font-weight: 800;
+            color: #ea580c;
+          }
+          .expiry-text {
+            font-size: 13px;
+            color: #ef4444;
+            font-weight: 600;
+          }
+          .security-note {
+            font-size: 13px;
+            color: #9ca3af;
+            background-color: #f9fafb;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 24px;
+          }
+          .footer {
+            background-color: #f9fafb;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #9ca3af;
+            border-top: 1px solid #f3f4f6;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <div class="logo">DineFlow</div>
+          </div>
+          <div class="content">
+            <h1>Login Verification</h1>
+            <p>Please use the following One-Time Password (OTP) to securely log in to your DineFlow account.</p>
+            <div class="otp-card">${otp}</div>
+            <p class="expiry-text">This code will expire in ${expiresInMinutes} minutes.</p>
+            <div class="security-note">
+              <strong>Security Note:</strong> If you did not request this login code, please ignore this email or secure your account password. Do not share this OTP with anyone.
+            </div>
+          </div>
+          <div class="footer">
+            <p>&copy; 2026 DineFlow. All rights reserved.</p>
+          </div>
+        </div>
+      </body>
+    </html>
+  `;
+
+  return await sendEmail({ to, subject, text, html });
 };
 
 module.exports = {
   sendEmail,
   sendSms,
   sendWelcomeEmail,
+  sendOtpEmail,
 };
