@@ -1,14 +1,13 @@
 const { formatToE164 } = require('./phoneFormatter');
 
-// 🔧 DEBUG START (yahin add karo)
+//DEBUG START
 console.log("EMAIL MODULE ACTIVE");
 console.log(process.env.SENDGRID_API_KEY ? "KEY OK" : "KEY MISSING");
-// 🔧 DEBUG END`
+// DEBUG END
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
 const querystring = require('querystring');
-const { formatToE164 } = require('./phoneFormatter');
 
 const LOG_DIR = path.join(__dirname, '..', 'logs');
 const LOG_FILE = path.join(LOG_DIR, 'notifications.log');
@@ -35,9 +34,9 @@ const logNotification = ({ eventType, recipient, status, errorMsg, orderId, user
       userId: userId ? parseInt(userId, 10) : null,
       error: errorMsg || null,
     };
-    
+
     fs.appendFileSync(LOG_FILE, JSON.stringify(logEntry) + '\n', 'utf8');
-    
+
     // Console output for active monitoring in production/dev
     console.log(
       `[${timestamp}] [NOTIFICATION] [${eventType}] [${status}] Recipient: ${recipient}` +
@@ -169,7 +168,6 @@ const sendSms = async ({ to, body, orderId, userId }) => {
   const fromNumber = process.env.TWILIO_FROM_NUMBER;
 
   // Normalize recipient phone number
-  const formattedTo = formatToE164(to);
   console.log('[DEBUG] NotificationService SMS formatting:', { input: to, formatted: formattedTo });
   if (!formattedTo) {
     logNotification({
