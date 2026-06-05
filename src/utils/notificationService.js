@@ -1,3 +1,9 @@
+const { formatToE164 } = require('./phoneFormatter');
+
+// 🔧 DEBUG START (yahin add karo)
+console.log("EMAIL MODULE ACTIVE");
+console.log(process.env.SENDGRID_API_KEY ? "KEY OK" : "KEY MISSING");
+// 🔧 DEBUG END`
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
